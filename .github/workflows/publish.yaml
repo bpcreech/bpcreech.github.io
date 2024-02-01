@@ -1,0 +1,25 @@
+name: publish
+run-name: ${{ github.actor }} is publishing stuff
+on: [push]
+jobs:
+  job_id:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - id: 'checkout'
+      uses: 'actions/checkout@v4'
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        project_id: 'bpcreech-test-1'
+        workload_identity_provider: 'projects/433482736901/locations/global/workloadIdentityPools/github/providers/blog'
+
+    - id: 'upload-file'
+      uses: 'google-github-actions/upload-cloud-storage@v2'
+      with:
+        path: 'config.toml'
+        destination: 'www.bpcreech.com/test_gha'
