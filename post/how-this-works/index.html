@@ -56,9 +56,9 @@ so no thanks, for now.</p><h3 id=the-simple--cheap-flavor-of-serving-a-static-si
 <a href=https://web.archive.org/web/20180112010509/https://cloud.google.com/storage/docs/hosting-static-website>used to host instructions</a>
 for serving a static site from Google Cloud Storage (GCS) by simply pointing
 your domain&rsquo;s <code>A</code> and <code>AAAA</code> records to a GCS VIP. The servers behind the GCS
-VIP, which presumably got requests for a gazillion different buckets, would then
-use some form of <a href=https://en.wikipedia.org/wiki/Virtual_hosting>vhosting</a> to
-identify which bucket to serve up.</p><p>This is, presumably, similar to how Github pages work today.</p><p>The problem was that
+VIP, which get requests for a gazillion different buckets, would then use some
+form of <a href=https://en.wikipedia.org/wiki/Virtual_hosting>vhosting</a> to identify
+which bucket to serve up.</p><p>This is, presumably, similar to how Github pages work today.</p><p>The problem was that
 <a href=https://web.archive.org/web/20170327185149/https://cloud.google.com/storage/docs/static-website#https>this only worked for plaintext <code>http</code> (not <code>https</code>)</a>.
 It looks like Google never did the magic trick that Github Pages do today of
 dynamically provisioning a cert (using Let&rsquo;s Encrypt). You could argue that this
@@ -69,7 +69,7 @@ instructions.</p><p>They <em>could</em> have gone with a Github-Pages-like Let&r
 up a place to declare a desire for Google to go provision a cert for you, but
 instead, the
 <a href=https://cloud.google.com/storage/docs/hosting-static-website>new host-your-site-from-GCS instructions</a>
-go with a more complex path of:</p><ol><li>Allocating a static VIP (presumably both IPv4 and IPv6),</li><li>Obtaining and generating your own cert, and</li><li>Setting up the Google Cloud Load Balancer pointing that VIP to your bucket
+go with a more complex path of:</p><ol><li>Allocating your own static VIP (probably both IPv4 and IPv6),</li><li>Obtaining and generating your own cert, and</li><li>Setting up the Google Cloud Load Balancer pointing that VIP to your bucket
 using your cert.</li></ol><p>This is more flexible and powerful (way more knobs to play with on both the cert
 and the load balancer!), but it&rsquo;s more complicated. The fact that it uses a
 static VIP means you need to pay for an ever-diminishing and thus
