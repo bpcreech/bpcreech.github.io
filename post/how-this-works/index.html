@@ -86,6 +86,14 @@
 </li>
 </ol>
 <p>Yay, highly-scalable web hosting for just the cost of $12/year for a custom domain! (Within, you know, <a href=https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages>limits</a> <em>including that you don&rsquo;t mind your source being public</em>.)</p>
+<table>
+<thead>
+<tr>
+<th><img src=/img/i-can-has-https.png alt="A browser pointing at bpcreech.com, showing https enabled"></th>
+<th><img src=/img/lets-encrypt.png alt="Cert details listing Let&rsquo;s Encrypt as the authority"></th>
+</tr>
+</thead>
+</table>
 <h2 id=alternative-considered-google-cloud-platform>Alternative considered: Google Cloud Platform</h2>
 <p><em>This is way too much info, just writing for my future reference I guess&mldr;</em></p>
 <p>An earlier version of this site, from way back in 2018, worked this way:</p>
@@ -97,7 +105,7 @@
 </ol>
 <p>This worked! But several ways in which it wasn&rsquo;t as good:</p>
 <h3 id=more-complicated-more-maintenance>More complicated, more maintenance</h3>
-<p>Running your own GKE cluster can involve some maintenance and actual $ costs. Github Actions was launched <a href=https://techcrunch.com/2018/10/16/github-launches-actions-its-workflow-automation-tool>just a month after I originally set this up</a> and is far easier to set up and maintain. Github Actions is much easier within the confines of what I want (including, e.g., that I don&rsquo;t have much in the way of expectations around availability which <a href=https://www.githubstatus.com/history>has been problematic</a> on Github Actions, and the &ldquo;build&rdquo; operations I&rsquo;m running are cheap enough to be free).</p>
+<p>Running your own GKE cluster can involve some maintenance and actual $ costs. Github Actions was <a href=https://techcrunch.com/2018/10/16/github-launches-actions-its-workflow-automation-tool>launched in October 2018</a> just a month after I originally set this up. It&rsquo;s far easier to set up and maintain within the confines of what I want (including, e.g., that I don&rsquo;t have much in the way of expectations around availability which <a href=https://www.githubstatus.com/history>has been problematic</a> on Github Actions, and the &ldquo;build&rdquo; operations I&rsquo;m running are cheap enough to be free).</p>
 <p>If I were to redo this <em>without</em> Github Actions I&rsquo;d use <a href=https://cloud.google.com/run>Google Cloud Run</a> (i.e., containerized serverless) along with <a href="https://github.com/google-github-actions/auth?tab=readme-ov-file#direct-wif">this fancy new Workload Identity Pool authn scheme</a> in lieu of shared secrets. (I played with this too recently. It works! It&rsquo;s super cool! It&rsquo;s not worth it for this.)</p>
 <h3 id=unbounded-costs>Unbounded costs</h3>
 <p>A GKE cluster and GCS bucket, like many things on Google Cloud, can generate unbounded cost if something goes really haywire. <a href=https://stackoverflow.com/questions/27616776/how-do-i-set-a-cost-limit-in-google-developers-console>Google Cloud does not offer any built-in way to set a max billing limit</a>. <a href="https://news.ycombinator.com/item?id=25398148">This can bankrupt you overnight</a> unless you can successfully beg Google to forgive your bill. Probably okay if running a company which has an ops team to pay attention to such things. Definitely not worth the risk for a personal blog which I sometime forget exists!</p>
