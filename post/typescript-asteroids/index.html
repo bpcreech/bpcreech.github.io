@@ -11,15 +11,16 @@ it&rsquo;s live here!"><link rel=preconnect href=https://fonts.gstatic.com cross
 <a href=http://www.dougmcinnes.com/2010/05/12/html-5-asteroids>this cool JavaScript+HTML5 Asteroids clone</a>.
 I&rsquo;ve
 <a href=https://github.com/bpcreech/typescript-asteroids>converted it to TypeScript</a>;
-it&rsquo;s live <a href=https://bpcreech.com/asteroids/>here</a>!</p><h2 id=asteroids>Asteroids</h2><p>Asteroids is one of my favorite video games. The day care I grew up in (!) had
-an original tabletop Asteroids game for the munchkins to play with, so I spent
-hours on that thing instead of playing sportsball or getting vitamin D. It&rsquo;s
+it&rsquo;s live <a href=https://bpcreech.com/asteroids/>here</a>!</p><h2 id=asteroids>Asteroids</h2><p><a href=https://www.arcade-museum.com/Videogame/asteroids>Asteroids</a> is one of my
+favorite video games. Many years ago, the daycare I grew up in (!) had an
+original tabletop Asteroids game for us munchkins to play with. I spent hours on
+that thing instead of playing sportsball or getting vitamin D. Asteroids is
 super cool in both its simplicity, and its use of vector graphics—as in, the
 original CRT didn&rsquo;t just do the horizontal scan thing; the tube traced out the
 vector pattern on the screen, resulting in things like small shapes showing up
 brighter.</p><p>So I have spent random minutes playing
 <a href=https://github.com/dmcinnes/HTML5-Asteroids>Doug McInnes&rsquo;s JS asteroids clone</a>
-to reset my brain, for years since he first published it back in 2010.</p><h2 id=typescriptification>TypeScriptification</h2><p>I wanted to play with ML reinforcement learning (more on that later), which
+to reset my brain, for years since he first published it back in 2010.</p><p style=text-align:center><p><img src=/img/asteroids-cocktail.jpg alt="An original Asteroids &ldquo;Cocktail&rdquo;-style tabletop game"></p><p><a href=https://arcadespecialties.com/arcade-games-for-sale/vintage-arcade-games/asteroids-cocktail/>source</a></p></p><h2 id=typescriptification>TypeScriptification</h2><p>I wanted to play with ML reinforcement learning (more on that later), which
 requires me first to do some code refactoring on the game. Notably, to do
 training I want to be able to programmatically:</p><ol><li>Reset the game,</li><li>Single-step the game loop,</li><li>Seed the RNG,</li><li>Extract internal state for observation, and</li><li>Decouple UI from business logic, so we can run the game logic without a full
 browser (for both simplicity and speed).</li></ol><p>I&rsquo;m not a good enough JS programmer to safely refactor piles of raw JS, so &mldr;
