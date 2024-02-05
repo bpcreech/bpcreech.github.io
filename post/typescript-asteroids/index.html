@@ -25,7 +25,9 @@ to reset my brain, for years since he first published it back in 2010.</p><div s
 requires me first to do some code refactoring on the game. Notably, to do
 training I want to be able to programmatically:</p><ol><li>Reset the game,</li><li>Seed the RNG,</li><li>Single-step the game loop,</li><li>Extract internal state for observation,</li><li>Provide precise control inputs, and</li><li>Decouple UI from business logic, so we can run the game logic without a full
 browser (for both simplicity and speed).</li></ol><p>I&rsquo;m not a good enough JS programmer to safely refactor piles of raw JS, so &mldr;
-<a href=https://bpcreech.com/asteroids>I converted it to TypeScript</a>!</p><p>This uses:</p><ul><li><a href=https://vitejs.dev/>Vite</a> to manage the dev and build toolchain,</li><li><a href=https://eslint.org/>ESLint</a> for code linting,</li><li><a href=https://prettier.io/>Prettier</a> for formatting, and</li><li><a href=https://github.com/features/actions>Github Actions</a> for CI/CD.</li></ul><p>While all of this improves developer experience, the funny thing is: Doug&rsquo;s
+<a href=https://bpcreech.com/asteroids>I converted it to TypeScript</a>! I added some
+OOPyness here and there and generally cleaned up some of the code. More
+refactoring and cleanups to come&mldr;</p><p>This uses:</p><ul><li><a href=https://vitejs.dev/>Vite</a> to manage the dev and build toolchain,</li><li><a href=https://eslint.org/>ESLint</a> for code linting,</li><li><a href=https://prettier.io/>Prettier</a> for formatting, and</li><li><a href=https://github.com/features/actions>Github Actions</a> for CI/CD.</li></ul><p>While all of this improves developer experience, the funny thing is: Doug&rsquo;s
 original JS Asteroids works unmodified 15 years later. It&rsquo;s highly unlikely this
 new one (which depends on all of the above, and NPM, and TypeScript itself) will
 work longer than a year without maintenance to handle changes in dependencies!</p><h2 id=ml-reinforcement-learning>ML reinforcement learning??</h2><p><strong>This is still a TODO and will get another post if I manage to operationalize
