@@ -20,7 +20,8 @@ original CRT didn&rsquo;t just do the horizontal scan thing; the tube traced out
 vector pattern on the screen, resulting in things like small shapes showing up
 brighter.</p><p>So I have spent random minutes playing
 <a href=https://github.com/dmcinnes/HTML5-Asteroids>Doug McInnes&rsquo;s JS asteroids clone</a>
-to reset my brain, for years since he first published it back in 2010.</p><p style=text-align:center>![An original Asteroids "Cocktail"-style tabletop game](/img/asteroids-cocktail.jpg)</p><p style=text-align:center>An original Asteroids "Cocktail"-style tabletop game; [source](https://arcadespecialties.com/arcade-games-for-sale/vintage-arcade-games/asteroids-cocktail/)</p><h2 id=typescriptification>TypeScriptification</h2><p>I wanted to play with ML reinforcement learning (more on that below), which
+to reset my brain, for years since he first published it back in 2010.</p><div style=text-align:center><p><img src=/img/asteroids-cocktail.jpg alt="An original Asteroids &ldquo;Cocktail&rdquo;-style tabletop game"></p></p><p><em>An original Asteroids &ldquo;Cocktail&rdquo;-style tabletop game;
+<a href=https://arcadespecialties.com/arcade-games-for-sale/vintage-arcade-games/asteroids-cocktail/>source</a></em></p></div><h2 id=typescriptification>TypeScriptification</h2><p>I wanted to play with ML reinforcement learning (more on that below), which
 requires me first to do some code refactoring on the game. Notably, to do
 training I want to be able to programmatically:</p><ol><li>Reset the game,</li><li>Single-step the game loop,</li><li>Seed the RNG,</li><li>Extract internal state for observation, and</li><li>Decouple UI from business logic, so we can run the game logic without a full
 browser (for both simplicity and speed).</li></ol><p>I&rsquo;m not a good enough JS programmer to safely refactor piles of raw JS, so &mldr;
