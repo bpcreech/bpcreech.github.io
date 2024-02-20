@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>programming on Disparate Treasures</title><link>https://bpcreech.com/categories/programming/</link><description>Recent content in programming on Disparate Treasures</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 19 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://bpcreech.com/categories/programming/index.xml" rel="self" type="application/rss+xml"/><item><title>Running JavaScript from Python using NodeJS</title><link>https://bpcreech.com/post/python-nodejs-eval/</link><pubDate>Mon, 19 Feb 2024 00:00:00 +0000</pubDate><guid>https://bpcreech.com/post/python-nodejs-eval/</guid><description>&lt;p>I wanted to call a pile of JavaScript (actually transpiled TypeScript) from
-Python, so I could run reinforcement learning on &lt;a href="./typescript-asteroids">this&lt;/a>.&lt;/p>
-&lt;p>I was dissatisfied with options for calling JS from Python, so I made a &lt;em>new&lt;/em>
-thing!&lt;/p></description></item><item><title>TypeScript Asteroids</title><link>https://bpcreech.com/post/typescript-asteroids/</link><pubDate>Sun, 04 Feb 2024 00:00:00 +0000</pubDate><guid>https://bpcreech.com/post/typescript-asteroids/</guid><description>&lt;p>In 2010 Doug McInnes &lt;a href="https://github.com/dmcinnes/HTML5-Asteroids">made&lt;/a>
+Python, so I could run reinforcement learning on
+&lt;a href="https://bpcreech.com/post/typescript-asteroids">this&lt;/a>.&lt;/p>
+&lt;p>I was dissatisfied with the existing options for calling JS from Python, so I
+made a &lt;em>new&lt;/em> thing!&lt;/p></description></item><item><title>TypeScript Asteroids</title><link>https://bpcreech.com/post/typescript-asteroids/</link><pubDate>Sun, 04 Feb 2024 00:00:00 +0000</pubDate><guid>https://bpcreech.com/post/typescript-asteroids/</guid><description>&lt;p>In 2010 Doug McInnes &lt;a href="https://github.com/dmcinnes/HTML5-Asteroids">made&lt;/a>
 &lt;a href="http://www.dougmcinnes.com/2010/05/12/html-5-asteroids">this cool JavaScript+HTML5 Asteroids clone&lt;/a>.
 I&amp;rsquo;ve
 &lt;a href="https://github.com/bpcreech/typescript-asteroids">converted it to TypeScript&lt;/a>;
