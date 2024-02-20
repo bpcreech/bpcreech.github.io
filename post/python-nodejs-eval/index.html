@@ -29,11 +29,10 @@ process&mldr;</p><p>But how do we send it code? I figured, as a low-dependency o
 HTTP over a Unix domain socket as our IPC.</p><p>Obviously, an IPC which effectively sends arbitrary code for execution raises
 security concerns. If done improperly, we&rsquo;re building a
 <a href=https://en.wikipedia.org/wiki/Arbitrary_code_execution>Remote Code Execution (RCE) vulnerability</a>.
-Using a Unix domain socket alleviates some security concern (including local
-privilege escalation vulnerability). With some extra configuration footgun
-checks (blocking binding to a TCP/IP port, and checking for a good
-<a href=https://en.wikipedia.org/wiki/Umask><code>umask</code></a>), using a Unix domain socket
-<em>should</em> make this safe. I think. :) More on that
+Using a Unix domain socket with some extra configuration footgun checks
+(blocking binding to a TCP/IP port, and checking for a good
+<a href=https://en.wikipedia.org/wiki/Umask><code>umask</code></a>), <em>should</em> make this safe. I
+think. :) More on that
 <a href=https://www.npmjs.com/package/http-eval#security-stance>here</a>.</p><p>Anyway, I coded this up in TypeScript as an <code>npx</code>-executable binary script,
 using <a href=https://www.npmjs.com/package/express><code>express</code></a>,
 <a href=https://www.npmjs.com/package/tsx><code>tsx</code></a> and
