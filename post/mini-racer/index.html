@@ -19,7 +19,7 @@ recently fallen into disrepair. Can we revive it?
 TL;DR: Yes! It just took a couple weeks of elbow grease, and new ownership
 (it me). I now own the two best ways to run JavaScript from a Python program:
 PyMiniRacer and
-nodejs-eval."><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=//fonts.googleapis.com><link rel=dns-prefetch href=//fonts.gstatic.com><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/custom.css><link rel="shortcut icon" href=/favicon.ico></head><body class=body><div class="container container--outer"><header class=header><div class="container header__container"><div class="logo logo--mixed"><a class=logo__link href=/ title="Disparate Treasures" rel=home><div class="logo__item logo__imagebox"><img class=logo__img src=/img/squirrel.png></div><div class="logo__item logo__text"><div class=logo__title>Disparate Treasures</div><div class=logo__tagline>Ben Creech's arbitrary stuff</div></div></a></div><div class=divider></div></div></header><div class="wrapper flex"><div class=primary><main class=main role=main><article class=post><header class=post__header><h1 class=post__title>Reviving PyMiniRacer</h1><p class=post__lead>JS-in-Python, in-process, redux!</p></header><div class="post__toc toc"><div class=toc__title>Page content</div><div class=toc__menu><nav id=TableOfContents><ul><li><a href=#a-lineage>A lineage</a></li><li><a href=#general-updates>General updates</a><ul><li><a href=#python-ecosystem-updates>Python ecosystem updates</a></li></ul></li><li><a href=#docs>Docs!</a></li><li><a href=#actually-building-v8>Actually building V8</a><ul><li><a href=#general-challenges-in-building-v8>General challenges in building V8</a></li><li><a href=#extras-from-updating-v8>Extras from updating V8</a></li><li><a href=#potential-future-work-in-simplifying-the-v8-build>Potential future work in simplifying the V8 build</a></li></ul></li><li><a href=#future-work-in-pyminiracer>Future work in <code>PyMiniRacer</code></a></li></ul></nav></div></div><div class="content post__content clearfix"><p>In <a href=https://bpcreech.com/post/python-nodejs-eval/>this last blog post</a>, I
+nodejs-eval."><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=//fonts.googleapis.com><link rel=dns-prefetch href=//fonts.gstatic.com><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/custom.css><link rel="shortcut icon" href=/favicon.ico></head><body class=body><div class="container container--outer"><header class=header><div class="container header__container"><div class="logo logo--mixed"><a class=logo__link href=/ title="Disparate Treasures" rel=home><div class="logo__item logo__imagebox"><img class=logo__img src=/img/squirrel.png></div><div class="logo__item logo__text"><div class=logo__title>Disparate Treasures</div><div class=logo__tagline>Ben Creech's arbitrary stuff</div></div></a></div><div class=divider></div></div></header><div class="wrapper flex"><div class=primary><main class=main role=main><article class=post><header class=post__header><h1 class=post__title>Reviving PyMiniRacer</h1><p class=post__lead>JS-in-Python, in-process, redux!</p></header><div class="post__toc toc"><div class=toc__title>Page content</div><div class=toc__menu><nav id=TableOfContents><ul><li><a href=#a-lineage>A lineage</a></li><li><a href=#general-updates>General updates</a><ul><li><a href=#python-ecosystem-updates>Python ecosystem updates</a></li><li><a href=#docs>Docs!</a></li></ul></li><li><a href=#actually-building-v8>Actually building V8</a><ul><li><a href=#general-challenges-in-building-v8>General challenges in building V8</a></li><li><a href=#extra-features-added-while-updating-v8>Extra features added while updating V8</a></li><li><a href=#potential-future-work-in-simplifying-the-v8-build>Potential future work in simplifying the V8 build</a></li></ul></li><li><a href=#future-work-in-pyminiracer>Future work in <code>PyMiniRacer</code></a></li></ul></nav></div></div><div class="content post__content clearfix"><p>In <a href=https://bpcreech.com/post/python-nodejs-eval/>this last blog post</a>, I
 created a <a href=https://pypi.org/project/nodejs-eval/>helper</a> to call JavaScript
 from Python using a NodeJS sidecar process. In the post I
 <a href=https://bpcreech.com/post/python-nodejs-eval/#alternatives-considered>commented</a>
@@ -50,29 +50,32 @@ that *in-*process JS evaluation might be nicer. The old
 </span></span><span style=display:flex><span><span style=color:#f92672>...</span>
 </span></span><span style=display:flex><span><span style=color:#a6e22e>KeyboardInterrupt</span>
 </span></span></code></pre></div><p><em>Other new features can be found
-<a href=https://bpcreech.com/PyMiniRacer/history/>on the relnotes page</a> where v0.7.0
-is the first new version since 2021.</em></p><h2 id=a-lineage>A lineage</h2><ol><li><strong><code>therubyracer</code> (2009-2018)</strong> <a href=https://github.com/cowboyd>Charles Lowell</a>
-of <a href=https://frontside.com/>Frontside Software</a> created
+<a href=https://bpcreech.com/PyMiniRacer/history/>on the relnotes page</a>, where v0.7.0
+is the first new version since 2021.</em></p><h2 id=a-lineage>A lineage</h2><ol><li><strong><a href=https://github.com/rubyjs/therubyracer><code>therubyracer</code></a> (2009-2018)</strong>
+<a href=https://github.com/cowboyd>Charles Lowell</a> of
+<a href=https://frontside.com/>Frontside Software</a> created
 <a href=https://github.com/rubyjs/therubyracer>The Ruby Racer</a> to embed
 <a href=https://v8.dev/>V8</a> (the JavaScript engine used by Chrome, NodeJS, etc)
 into <a href=https://www.ruby-lang.org/>Ruby</a> for direct JS execution from Ruby
 programs.<ul><li>Unfortunately, the rich integration between Ruby Racer and V8 became a pain
 point for Ruby Racer, because upgrading V8 often mean revamping Ruby Racer
 to fit interface changes. So this project was eventually archived, and
-replaced with&mldr;</li></ul></li><li><strong><code>mini_racer</code> (2016-)</strong> <a href=https://github.com/SamSaffron>Sam Saffron</a> and
-others created <a href=https://github.com/rubyjs/mini_racer><code>mini_racer</code></a>, a new
-Ruby / V8 integration, stripped down relative to Ruby Racer. This version is
-still maintained.</li><li><strong><code>sqreen/PyMiniRacer</code> (2016-2021)</strong> <a href=https://github.com/sqreen>Sqreen</a>, a
-wep app security startup, created
+replaced with&mldr;</li></ul></li><li><strong><a href=https://github.com/rubyjs/mini_racer><code>mini_racer</code></a> (2016-)</strong>
+<a href=https://github.com/SamSaffron>Sam Saffron</a> and others created
+<a href=https://github.com/rubyjs/mini_racer><code>mini_racer</code></a>, a new Ruby / V8
+integration, stripped down relative to Ruby Racer. This version is still
+maintained.</li><li><strong><a href=https://github.com/sqreen/PyMiniRacer><code>sqreen/PyMiniRacer</code></a> (2016-2021)</strong>
+<a href=https://github.com/sqreen>Sqreen</a>, a wep app security startup, created
 <a href=https://github.com/sqreen/PyMiniRacer><code>PyMiniRacer</code></a>, a Python module
 modeled after Ruby&rsquo;s <code>mini_racer</code>. This followed the same model of minimizing
 the interface with V8, and also used a Python <code>ctypes</code> integration (as
 opposed to a Python extension module) which furthermore minimized the
 interface with <em>Python</em>, resulting in a JS/Python integration with relatively
 little support burden.<ul><li>Unfortunately, <code>PyMiniRacer</code> wasn&rsquo;t updated after 2021 when
-<a href=https://www.datadoghq.com/blog/datadog-acquires-sqreen/>Sqreen was acquired by DataDog</a>.</li></ul></li><li><strong><code>bpcreech/PyMiniRacer</code> (2024-)</strong> This is what you&rsquo;re reading about now. :)</li></ol><p>After discussion with the Sqreen (now DataDog) folks, we decided to host my
-revival of their <code>PyMiniRacer</code> project as a fork, which lives at:</p><ul><li><a href=https://github.com/bpcreech/PyMiniRacer>Github</a></li><li><a href=https://bpcreech.com/PyMiniRacer/>Docs</a>, and</li><li><a href=https://pypi.org/project/mini-racer/>PyPI</a>.</li></ul><h2 id=general-updates>General updates</h2><p>Other than upgrading V8—which has its own section below—I took the opportunity
-to dust off a lot of parts of this project.</p><h3 id=python-ecosystem-updates>Python ecosystem updates</h3><p>Lots of things have happened in the Python world!</p><h4 id=python-versions-drop-2-add-up-to-312>Python versions (drop 2, add up to 3.12)</h4><p>First, we can drop Python 2 which was
+<a href=https://www.datadoghq.com/blog/datadog-acquires-sqreen/>Sqreen was acquired by DataDog</a>.</li></ul></li><li><strong><a href=https://github.com/bpcreech/PyMiniRacer><code>bpcreech/PyMiniRacer</code></a> (2024-)</strong>
+This is what you&rsquo;re reading about now. :)</li></ol><p>After discussion with the Sqreen (now DataDog) folks, we decided to host my
+revival of their <code>PyMiniRacer</code> project as a fork, which lives here:</p><ul><li><a href=https://github.com/bpcreech/PyMiniRacer>Github</a></li><li><a href=https://bpcreech.com/PyMiniRacer/>Docs</a>, and</li><li><a href=https://pypi.org/project/mini-racer/>PyPI</a>.</li></ul><h2 id=general-updates>General updates</h2><p>Other than upgrading V8—which has its own section below—I took the opportunity
+to dust off various parts of this project.</p><h3 id=python-ecosystem-updates>Python ecosystem updates</h3><p>In particular, lots of things have happened in the Python world!</p><h4 id=python-versions-drop-python-2-add-up-to-312>Python versions (drop Python 2, add up to 3.12)</h4><p>First, we can drop Python 2 which was
 <a href=https://www.python.org/doc/sunset-python-2/>globally EOL&rsquo;d in 2020</a> (after a
 deprecation plan over a decade long!). Because the world is big, folks are still
 using Python 2 out there, but we don&rsquo;t need to maintain an <em>up-to-date</em> V8
@@ -91,7 +94,7 @@ managed its various bits of automation using a hand-written <code>Makefile</code
 now has a standardized pluggable packaging system for building binary
 distributions, and <a href=https://github.com/pypa/hatch>Hatch</a> is the most popular
 implementation of it.
-<a href=https://github.com/pypa/hatch/discussions/1117#discussioncomment-7827378><em>Hatch is trying to be the Cargo or Go CLI equivalent for Python</em></a>
+<a href=https://github.com/pypa/hatch/discussions/1117#discussioncomment-7827378><em>&ldquo;Hatch is trying to be the Cargo or Go CLI equivalent for Python&rdquo;</em></a>
 per <a href=https://github.com/ofek>its author</a>. By using it (and accepting its
 various opinions) we can drop a <em>lot</em> of configuration from <code>PyMiniRacer</code>.</p><p>Hatch includes a bundled an opinionated linter and code formatter in
 <a href=https://github.com/astral-sh/ruff>Ruff</a>, which lets us drop <code>flake8</code> and
@@ -104,9 +107,9 @@ when it won the formatting war, but for some reason Hatch
 so I put it back where Black (and Ruff) default to.</p><p>Hatch also includes built-in support for Python version matrix testing. It works
 super well (modulo, not on <a href=https://www.alpinelinux.org/>Alpine</a> for
 <a href=https://github.com/indygreg/python-build-standalone/issues/86>reasons</a>) and
-lets us drop <code>tox</code> as a development dependency.</p><h2 id=docs>Docs!</h2><p>Inspired by
+lets us drop <code>tox</code> as a development dependency.</p><h3 id=docs>Docs!</h3><p>Inspired by
 <a href=https://matklad.github.io//2021/02/06/ARCHITECTURE.md.html>this post</a>, I
-figured we should have an ARCHITECTURE.md, so
+figured we should have an <code>ARCHITECTURE.md</code>, so
 <a href=https://github.com/bpcreech/PyMiniRacer/blob/main/ARCHITECTURE.md>I wrote one</a>
 (<a href=https://bpcreech.com/PyMiniRacer/architecture/>same on the <code>mkdocs</code> site</a>).</p><p>I also sprinkled in a ton of comments. <code>PyMiniRacer</code>&rsquo;s V8 build (see below) is
 full of workarounds and config changes. These do <em>not</em> help in forwards
@@ -160,7 +163,7 @@ also use), etc.</p></li><li><p><strong>That build ecosystem, and the build in ge
 Alpine or Linux-on-Arm:</strong> For <code>PyMiniRacer</code> we want to target at least
 <code>{ Windows, Mac, Linux [glibc], Linux [musl] } × { x86_64, aarch64 }</code>
 (<code>aarch64</code>
-<a href=https://github.com/sqreen/PyMiniRacer/issues/154>by popular demand</a>.
+<a href=https://github.com/sqreen/PyMiniRacer/issues/154>by popular demand</a>).
 However, V8 doesn&rsquo;t support building on Linux-on-arm64, although it does
 support cross-compiling for it. V8 doesn&rsquo;t support <code>musl</code> (Alpine&rsquo;s <code>libc</code>)
 in either on-host building <em>or</em> cross-compiling. So we need to do various fun
@@ -180,7 +183,7 @@ runners: unfortunately, GitHub Actions has no native <code>aarch64</code> hosted
 and no native Alpine runners. We work around this using Umberto Raimondi&rsquo;s
 fantastic <a href=https://github.com/uraimo/run-on-arch-action><code>run-on-arch-action</code></a>.
 This GitHub Action plug-in helps us build Docker containers for Linux
-distributions and architectures, and then build <code>PyMiniRacer</code> there.</p><h3 id=extras-from-updating-v8>Extras from updating V8</h3><p>Aside from
+distributions and architectures, and then build <code>PyMiniRacer</code> there.</p><h3 id=extra-features-added-while-updating-v8>Extra features added while updating V8</h3><p>Aside from
 <a href="https://chromium.googlesource.com/v8/v8/+log/branch-heads/8.9..branch-heads/12.2/?n=1000">all the V8 updates from v8.9 to v12.2</a>,
 I plumbed in the following which had been disabled in prior <code>PyMiniRacer</code>
 builds:</p><ul><li>Support for the <a href=https://v8.dev/docs/i18n>ECMAScript internalization API</a> and
