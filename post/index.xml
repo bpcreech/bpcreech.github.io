@@ -2,7 +2,7 @@
 created a &lt;a href="https://pypi.org/project/nodejs-eval/">helper&lt;/a> to call JavaScript
 from Python using a NodeJS sidecar process. In the post I
 &lt;a href="https://bpcreech.com/post/python-nodejs-eval/#alternatives-considered">commented&lt;/a>
-that *in-*process JS evaluation might be nicer. The old
+that &lt;em>in-&lt;/em> process JS evaluation might be nicer. The old
 &lt;a href="https://github.com/sqreen/PyMiniRacer">Sqreen &lt;code>PyMiniRacer&lt;/code> project&lt;/a> had only
 &lt;em>recently&lt;/em> fallen into disrepair. Can we revive it?&lt;/p>
 &lt;p>&lt;strong>TL;DR: Yes!&lt;/strong> It just took a couple weeks of elbow grease, and new ownership

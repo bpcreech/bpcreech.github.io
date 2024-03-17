@@ -3,7 +3,7 @@
 created a helper to call JavaScript
 from Python using a NodeJS sidecar process. In the post I
 commented
-that *in-*process JS evaluation might be nicer. The old
+that in- process JS evaluation might be nicer. The old
 Sqreen PyMiniRacer project had only
 recently fallen into disrepair. Can we revive it?
 TL;DR: Yes! It just took a couple weeks of elbow grease, and new ownership
@@ -13,17 +13,17 @@ nodejs-eval."><meta property="og:type" content="article"><meta property="og:url"
 created a helper to call JavaScript
 from Python using a NodeJS sidecar process. In the post I
 commented
-that *in-*process JS evaluation might be nicer. The old
+that in- process JS evaluation might be nicer. The old
 Sqreen PyMiniRacer project had only
 recently fallen into disrepair. Can we revive it?
 TL;DR: Yes! It just took a couple weeks of elbow grease, and new ownership
 (it me). I now own the two best ways to run JavaScript from a Python program:
 PyMiniRacer and
-nodejs-eval."><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=//fonts.googleapis.com><link rel=dns-prefetch href=//fonts.gstatic.com><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/custom.css><link rel="shortcut icon" href=/favicon.ico></head><body class=body><div class="container container--outer"><header class=header><div class="container header__container"><div class="logo logo--mixed"><a class=logo__link href=/ title="Disparate Treasures" rel=home><div class="logo__item logo__imagebox"><img class=logo__img src=/img/squirrel.png></div><div class="logo__item logo__text"><div class=logo__title>Disparate Treasures</div><div class=logo__tagline>Ben Creech's arbitrary stuff</div></div></a></div><div class=divider></div></div></header><div class="wrapper flex"><div class=primary><main class=main role=main><article class=post><header class=post__header><h1 class=post__title>Reviving PyMiniRacer</h1><p class=post__lead>JS-in-Python, in-process, redux!</p></header><div class="post__toc toc"><div class=toc__title>Page content</div><div class=toc__menu><nav id=TableOfContents><ul><li><a href=#a-lineage>A lineage</a></li><li><a href=#general-updates>General updates</a><ul><li><a href=#python-ecosystem-updates>Python ecosystem updates</a></li><li><a href=#docs>Docs!</a></li></ul></li><li><a href=#actually-building-v8>Actually building V8</a><ul><li><a href=#general-challenges-in-building-v8>General challenges in building V8</a></li><li><a href=#extra-features-added-while-updating-v8>Extra features added while updating V8</a></li><li><a href=#potential-future-work-in-simplifying-the-v8-build>Potential future work in simplifying the V8 build</a></li></ul></li><li><a href=#future-work-in-pyminiracer>Future work in <code>PyMiniRacer</code></a></li></ul></nav></div></div><div class="content post__content clearfix"><p>In <a href=https://bpcreech.com/post/python-nodejs-eval/>this last blog post</a>, I
+nodejs-eval."><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=//fonts.googleapis.com><link rel=dns-prefetch href=//fonts.gstatic.com><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/custom.css><link rel="shortcut icon" href=/favicon.ico></head><body class=body><div class="container container--outer"><header class=header><div class="container header__container"><div class="logo logo--mixed"><a class=logo__link href=/ title="Disparate Treasures" rel=home><div class="logo__item logo__imagebox"><img class=logo__img src=/img/squirrel.png></div><div class="logo__item logo__text"><div class=logo__title>Disparate Treasures</div><div class=logo__tagline>Ben Creech's arbitrary stuff</div></div></a></div><div class=divider></div></div></header><div class="wrapper flex"><div class=primary><main class=main role=main><article class=post><header class=post__header><h1 class=post__title>Reviving PyMiniRacer</h1><p class=post__lead>JS-in-Python, in-process, redux!</p></header><div class="post__toc toc"><div class=toc__title>Page content</div><div class=toc__menu><nav id=TableOfContents><ul><li><a href=#a-lineage>A lineage</a></li><li><a href=#general-updates>General updates</a><ul><li><a href=#python-ecosystem-updates>Python ecosystem updates</a></li><li><a href=#pytest-instead-of-unittest><code>pytest</code> instead of <code>unittest</code></a></li><li><a href=#docs>Docs!</a></li></ul></li><li><a href=#actually-building-v8>Actually building V8</a><ul><li><a href=#general-challenges-in-building-v8>General challenges in building V8</a></li><li><a href=#extra-features-added-while-updating-v8>Extra features added while updating V8</a></li><li><a href=#potential-future-work-in-simplifying-the-v8-build>Potential future work in simplifying the V8 build</a></li></ul></li><li><a href=#other-future-work-in-pyminiracer>Other future work in <code>PyMiniRacer</code></a></li></ul></nav></div></div><div class="content post__content clearfix"><p>In <a href=https://bpcreech.com/post/python-nodejs-eval/>this last blog post</a>, I
 created a <a href=https://pypi.org/project/nodejs-eval/>helper</a> to call JavaScript
 from Python using a NodeJS sidecar process. In the post I
 <a href=https://bpcreech.com/post/python-nodejs-eval/#alternatives-considered>commented</a>
-that *in-*process JS evaluation might be nicer. The old
+that <em>in-</em> process JS evaluation might be nicer. The old
 <a href=https://github.com/sqreen/PyMiniRacer>Sqreen <code>PyMiniRacer</code> project</a> had only
 <em>recently</em> fallen into disrepair. Can we revive it?</p><p><strong>TL;DR: Yes!</strong> It just took a couple weeks of elbow grease, and new ownership
 (it me). I now own the <em>two</em> best ways to run JavaScript from a Python program:
@@ -95,45 +95,51 @@ now has a standardized pluggable packaging system for building binary
 distributions, and <a href=https://github.com/pypa/hatch>Hatch</a> is the most popular
 implementation of it.
 <a href=https://github.com/pypa/hatch/discussions/1117#discussioncomment-7827378><em>&ldquo;Hatch is trying to be the Cargo or Go CLI equivalent for Python&rdquo;</em></a>
-per <a href=https://github.com/ofek>its author</a>. By using it (and accepting its
-various opinions) we can drop a <em>lot</em> of configuration from <code>PyMiniRacer</code>.</p><p>Hatch includes a bundled an opinionated linter and code formatter in
-<a href=https://github.com/astral-sh/ruff>Ruff</a>, which lets us drop <code>flake8</code> and
-<code>isort</code> and their config files as development dependencies. The only default
-setting I changed was the line length, from 120 to Black&rsquo;s default of 88. I
-thought this pointless debate was
+per <a href=https://github.com/ofek>its author</a>. By using Hatch (and accepting its
+various opinions) we can drop a <em>lot</em> of developer tooling configuration from
+<code>PyMiniRacer</code>.</p><p>Hatch includes a bundled an opinionated linter and code formatter in
+<a href=https://github.com/astral-sh/ruff>Ruff</a>, which lets us drop
+<a href=https://flake8.pycqa.org/en/latest/><code>flake8</code></a> and
+<a href=https://pycqa.github.io/isort/><code>isort</code></a> and their config files as development
+dependencies. The only default setting I changed was the line length, from 120
+to Black&rsquo;s default of 88. I thought this pointless debate was
 <a href=https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html#line-length>finally settled by Black</a>
 when it won the formatting war, but for some reason Hatch
 <a href=https://github.com/pypa/hatch/discussions/1117>overrides this setting to 120</a>,
 so I put it back where Black (and Ruff) default to.</p><p>Hatch also includes built-in support for Python version matrix testing. It works
 super well (modulo, not on <a href=https://www.alpinelinux.org/>Alpine</a> for
 <a href=https://github.com/indygreg/python-build-standalone/issues/86>reasons</a>) and
-lets us drop <code>tox</code> as a development dependency.</p><h3 id=docs>Docs!</h3><p>Inspired by
+lets us drop <a href=https://tox.wiki/en/4.14.1/><code>tox</code></a> as a development dependency.</p><h3 id=pytest-instead-of-unittest><code>pytest</code> instead of <code>unittest</code></h3><p>This is more of a no-brainer these days. <code>unittest</code> has been built into Python
+since forever, but these days everyone (in the OSS community anyway) seems to be
+converging on <code>pytest</code>. So I converted all the tests to <code>pytest</code>, which makes
+for slightly simpler-looking tests and prettier console output, yay.</p><h3 id=docs>Docs!</h3><p>Inspired by
 <a href=https://matklad.github.io//2021/02/06/ARCHITECTURE.md.html>this post</a>, I
 figured we should have an <code>ARCHITECTURE.md</code>, so
 <a href=https://github.com/bpcreech/PyMiniRacer/blob/main/ARCHITECTURE.md>I wrote one</a>
-(<a href=https://bpcreech.com/PyMiniRacer/architecture/>same on the <code>mkdocs</code> site</a>).</p><p>I also sprinkled in a ton of comments. <code>PyMiniRacer</code>&rsquo;s V8 build (see below) is
-full of workarounds and config changes. These do <em>not</em> help in forwards
-compatibility, because each little config tweak is a potential source of future
-breakage when that config parameter stops working. Now, we at least have a paper
-trail of where those tweaks came from!</p><p>Finally, and most dramatically from a cosmetic perspective, I migrated the
+(<a href=https://bpcreech.com/PyMiniRacer/architecture/><em>or see it on the <code>mkdocs</code> site</em></a>).</p><p>I also sprinkled in a ton of comments. <code>PyMiniRacer</code>&rsquo;s V8 build (see below) is
+full of workarounds, written as config tweaks, patches, and little extra steps.
+These workarounds do <em>not</em> help the forwards compatibility story, because each
+little tweak to the build process is a potential source of future breakage when
+the upstream V8 build process changes. Now, we at least have a paper trail of
+where those tweaks came from!</p><p>Finally, and most dramatically from a cosmetic perspective, I migrated the
 <code>PyMiniRacer</code> docs from <a href=https://www.sphinx-doc.org/en/master/>Sphinx</a> to
 <a href=https://squidfunk.github.io/mkdocs-material/>Material for MkDocs</a> and created
 a docs build pipeline (AFAICT there wasn&rsquo;t one!). Sphinx has been around and
 working forever, but the current ecosystem mindshare seems to be pouring into
 <code>mkdocs-material</code> lately.</p><p>I am a little worried about maintainability since <code>mkdocs-material</code> is a
-complicated and load-bearing <em>plugin</em> for the <code>mkdocs</code>, and itself only works
-with
-<a href=https://squidfunk.github.io/mkdocs-material/setup/extensions/><em>other</em> plugins for <code>mkdocs-material</code></a>.
+complicated and load-bearing <em>plugin</em> for the <code>mkdocs</code>, and itself works best
+only when combined with
+<a href=https://squidfunk.github.io/mkdocs-material/setup/extensions/><em>other</em> plugins from <code>mkdocs-material</code>&rsquo;s <em>own</em> plugin system</a>.
 it&rsquo;s a setup ripe for <a href=https://xkcd.com/2347/>this situation</a>. But, I went with
-peer pressure, and the new docs look great and have a very simple configuration,
+peer pressure, and the new docs look great with very little configuration,
 because <code>mkdocs-material</code> is indeed fantastic. The new docs live
 <a href=https://bpcreech.com/PyMiniRacer>here</a>.</p><h2 id=actually-building-v8>Actually building V8</h2><p>Okay, the main work here is updating V8. The last Sqreen version of
 <code>PyMiniRacer</code>, from 2021, used V8 8.9, and no longer builds. V8 is up to 12.2
-today.</p><h3 id=general-challenges-in-building-v8>General challenges in building V8</h3><p>There is no official binary distribution of V8. The only way to use V8 is to
-build it yourself. <em>Unless, perhaps, you use the NodeJS binary, which brings us
-back to
+today.</p><h3 id=general-challenges-in-building-v8>General challenges in building V8</h3><p>There is no official binary distribution of the V8 library as a standalone unit.
+The only way to use V8 is to build it yourself. <em>Unless, perhaps, you use the
+whole NodeJS binary, which brings us back to
 <a href=https://bpcreech.com/post/python-nodejs-eval/>my last blog post</a>—maybe, after
-all, the best way to use V8 is via a server running in NodeJS?</em></p><p>But building V8 is hard! Fun challenges in building V8:</p><ol><li><p><strong>V8 is enormous and building it is slow:</strong> V8 contains <em>or dynamically
+all, the best way to use V8 is via a server running inside NodeJS?</em></p><p>But building V8 is hard! Fun challenges in building V8:</p><ol><li><p><strong>V8 is enormous and building it is slow:</strong> V8 contains <em>or dynamically
 downloads</em> 6.6 GB of <em>source</em>! (Okay, not all &ldquo;source&rdquo;, actually: this
 includes some vendored copies of operating system roots, like <code>/usr</code> from
 flavors of Debian.) There are about 2.4k build steps, which include building
@@ -156,28 +162,32 @@ eventually succeed. (And hopefully, one day, GitHub will provide free
 <code>depot_tools</code> includes its very own binaries built for some but not all our
 target platforms, for things like Python,
 <a href=https://chromium.googlesource.com/infra/goma/client/>Goma</a> (a build cache
-we&rsquo;re not using), <a href=https://ninja-build.org/>Ninja</a> (a build system we do
+we&rsquo;re not using), <a href=https://ninja-build.org/>Ninja</a> (a build system we <em>do</em>
 use), <a href=https://github.com/o-lim/generate-ninja>GN</a> (a meta-build system we
-also use), etc.</p></li><li><p><strong>That build ecosystem, and the build in general, doesn&rsquo;t actually work <em>on</em>
+also use), etc. The <code>depot_tools</code> <code>fetch</code> tool acts as a recursive dependency
+module grabber (like Git submodules, but fancy). Once we have all the source,
+V8 uses a series of Python scripts to wrap GN, which in turn wraps Ninja.</p></li><li><p><strong>That build ecosystem, and the build in general, doesn&rsquo;t actually work <em>on</em>
 Alpine or Linux-on-Arm:</strong> For <code>PyMiniRacer</code> we want to target at least
 <code>{ Windows, Mac, Linux [glibc], Linux [musl] } × { x86_64, aarch64 }</code>
 (<code>aarch64</code>
-<a href=https://github.com/sqreen/PyMiniRacer/issues/154>by popular demand</a>).
-However, V8 doesn&rsquo;t support building on Linux-on-arm64, although it does
-support cross-compiling for it. V8 doesn&rsquo;t support <code>musl</code> (Alpine&rsquo;s <code>libc</code>)
-in either on-host building <em>or</em> cross-compiling. So we need to do various fun
+<a href=https://github.com/sqreen/PyMiniRacer/issues/154>by popular demand</a>). V8
+doesn&rsquo;t support building <em>on</em> Linux-on-arm64, although it does support
+<em>cross-compiling for</em> it. V8 doesn&rsquo;t support <code>musl</code> (Alpine&rsquo;s <code>libc</code>) in
+either on-host building <em>or</em> cross-compiling. So we need to do various fun
 config tweaks to make it actually work.</p></li><li><p><strong>V8 and the build system change all the time:</strong> V8 is under very heavy
 development at Google, for a variety of products (Chromium of course, but
 also ChromeOS, etc). The available and default config options change over
 time, meaning any intricate build setup we do in <code>PyMiniRacer</code> is likely to
 break in with newer V8 verions. So we want to <em>minimize</em> the amount of build
-configuration we do in <code>PyMiniRacer</code>, to future-proof it as best we can.</p></li><li><p><strong>V8 needs a bleeding-edge LLVM (particularly, clang) and wants its own
-libstdc++:</strong> V8 uses brand new features of <code>clang</code>, including an ML-driven
+configuration we do in <code>PyMiniRacer</code>, to future-proof it as best we can.</p></li><li><p><strong>V8 needs a bleeding-edge LLVM (particularly, <code>clang</code>) and wants its own
+<code>libstdc++</code>:</strong> V8 uses brand new features of <code>clang</code>, including an ML-driven
 optimization model. It comes with a build of the llvm toolchain, but only for
 supported platforms (thus excluding Alpine, and excluding building <em>on</em> Linux
-<code>aarch64</code>). We must mitigate this by installing a bleeding-edge LLVM from
+<code>aarch64</code>). We work around this by installing the latest LLVM from
 <a href=https://llvm.org/>the LLVM project</a> where the binaries vendored into V8
-itself don&rsquo;t work.</p></li></ol><p>Meanwhile, we impose another challenge by sticking to the free GitHub Actions
+itself don&rsquo;t work. But even this version isn&rsquo;t new enough for V8! We <em>still</em>
+have to tweak the build config to make it build even with the latest <em>stable</em>
+LLVM.</p></li></ol><p>Meanwhile, we impose another challenge by sticking to the free GitHub Actions
 runners: unfortunately, GitHub Actions has no native <code>aarch64</code> hosted runners,
 and no native Alpine runners. We work around this using Umberto Raimondi&rsquo;s
 fantastic <a href=https://github.com/uraimo/run-on-arch-action><code>run-on-arch-action</code></a>.
@@ -186,7 +196,8 @@ distributions and architectures, and then build <code>PyMiniRacer</code> there.<
 <a href="https://chromium.googlesource.com/v8/v8/+log/branch-heads/8.9..branch-heads/12.2/?n=1000">all the V8 updates from v8.9 to v12.2</a>,
 I plumbed in the following which had been disabled in prior <code>PyMiniRacer</code>
 builds:</p><ul><li>Support for the <a href=https://v8.dev/docs/i18n>ECMAScript internalization API</a> and
-thus <a href=https://tc39.es/ecma402/>the ECMA <code>Intl</code> API</a></li><li>V8 <a href=https://v8.dev/blog/custom-startup-snapshots>fast startup snapshots</a></li></ul><h3 id=potential-future-work-in-simplifying-the-v8-build>Potential future work in simplifying the V8 build</h3><p>The Ruby <a href=https://github.com/rubyjs/mini_racer><code>mini_racer</code> project</a> mentioned
+thus <a href=https://tc39.es/ecma402/>the ECMA <code>Intl</code> API</a>.</li><li>V8 <a href=https://v8.dev/blog/custom-startup-snapshots>fast startup snapshots</a>.</li></ul><p>Both of these require pulling generated data files into the Python package,
+alongside the compiled DLL.</p><h3 id=potential-future-work-in-simplifying-the-v8-build>Potential future work in simplifying the V8 build</h3><p>The Ruby <a href=https://github.com/rubyjs/mini_racer><code>mini_racer</code> project</a> mentioned
 above actually split the V8 build out into a separate project,
 <a href=https://github.com/rubyjs/libv8-node><code>libv8-node</code></a>: &ldquo;<em>A project for
 distributing the v8 runtime libraries and headers in both source and binary
@@ -202,8 +213,18 @@ of
 out of <code>GN</code>+<code>ninja</code> and into another to-be-determined build system.</p><p>Alternatively, it would be nice if V8 lived within a common C/C++ package
 system. The winning multi-platform C/C++ package system today seems to be
 <a href=https://conan.io>https://conan.io</a>. Making V8 work with Conan (well enough for official upload
-to conan central) would be tough because V8 loves to download its own
-dependencies in violation of Conan&rsquo;s common-sense One-Definition Rule (ODR).</p><h2 id=future-work-in-pyminiracer>Future work in <code>PyMiniRacer</code></h2><p>Future work may include:</p><ul><li>Support for
+to <a href=https://conan.io/center>Conan Center</a>) would be tough because V8 loves to
+download its own dependencies in violation of Conan&rsquo;s common-sense
+One-Definition Rule (ODR).</p><h2 id=other-future-work-in-pyminiracer>Other future work in <code>PyMiniRacer</code></h2><p>Future work may include:</p><ul><li>Updates to new V8 builds which we can assume will appear unabated.</li><li>Support for
 <a href=https://docs.python.org/3/library/asyncio.html>Python <code>asyncio</code></a>.</li><li>Other stuff from
-<a href=https://github.com/sqreen/PyMiniRacer/issues>the old GitHub issues</a> list.</li><li>Updates to new V8 builds which we can assume will appear unabated.</li></ul></div><footer class=post__footer><div class="post__tags tags clearfix"><svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5.0 11V3C0 1.5.8.8.8.8S1.5.0 3 0h8c1.5.0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 100-6 3 3 0 000 6z"/></svg><ul class=tags__list><li class=tags__item><a class="tags__link btn" href=/tags/javascript/ rel=tag>javascript</a></li><li class=tags__item><a class="tags__link btn" href=/tags/typescript/ rel=tag>typescript</a></li><li class=tags__item><a class="tags__link btn" href=/tags/python/ rel=tag>python</a></li></ul></div></footer></article></main><div class="authorbox clearfix"><figure class=authorbox__avatar><img alt="Ben Creech avatar" src=/img/maine_cropped.png class=avatar height=90 width=90></figure><div class=authorbox__header><span class=authorbox__name>About Ben Creech</span></div><div class=authorbox__description>Ben Creech is definitely a real person and insisting on this fact is not at all suspicious.</div></div><section class=comments><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//bpcreech.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></section></div></div><footer class=footer><div class="container footer__container flex"><div class=footer__copyright>&copy; 2024 Ben Creech.
+<a href=https://github.com/sqreen/PyMiniRacer/issues>the old GitHub issues</a> list.</li><li>Standard library stuff. <code>PyMiniRacer</code> has no <code>console.log</code> (and no <code>window</code>
+object for <code>console</code> to live on), no <code>setTimeout</code>, etc. Providing such
+functions would be handy, but also if we&rsquo;re not careful may act as a breach of
+the security sandbox provided by <code>PyMiniRacer</code>, will move away from the
+minimal-interface rule we&rsquo;re going for, and may trend toward &ldquo;just being
+NodeJS&rdquo; with its
+<a href=https://nodejs.org/docs/latest-v12.x/api/>rich standard library</a>. (At this
+point, we&rsquo;d be better off by embedding NodeJS, or just
+<a href=https://pypi.org/project/nodejs-eval/>running it as a sidecar</a>.</li></ul><p>If you&rsquo;re reading this and want to contribute, go for it! See
+<a href=https://bpcreech.com/PyMiniRacer/contributing/>the contribution guide</a>.</p></div><footer class=post__footer><div class="post__tags tags clearfix"><svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5.0 11V3C0 1.5.8.8.8.8S1.5.0 3 0h8c1.5.0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 100-6 3 3 0 000 6z"/></svg><ul class=tags__list><li class=tags__item><a class="tags__link btn" href=/tags/javascript/ rel=tag>javascript</a></li><li class=tags__item><a class="tags__link btn" href=/tags/typescript/ rel=tag>typescript</a></li><li class=tags__item><a class="tags__link btn" href=/tags/python/ rel=tag>python</a></li></ul></div></footer></article></main><div class="authorbox clearfix"><figure class=authorbox__avatar><img alt="Ben Creech avatar" src=/img/maine_cropped.png class=avatar height=90 width=90></figure><div class=authorbox__header><span class=authorbox__name>About Ben Creech</span></div><div class=authorbox__description>Ben Creech is definitely a real person and insisting on this fact is not at all suspicious.</div></div><section class=comments><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//bpcreech.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></section></div></div><footer class=footer><div class="container footer__container flex"><div class=footer__copyright>&copy; 2024 Ben Creech.
 <span class=footer__copyright-credits>Generated with <a href=https://gohugo.io/ rel="nofollow noopener" target=_blank>Hugo</a> and <a href=https://github.com/Vimux/Mainroad/ rel="nofollow noopener" target=_blank>Mainroad</a> theme.</span></div></div></footer></div><script async defer src=/js/menu.js></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script></body></html>
