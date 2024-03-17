@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Disparate Treasures</title><link>https://bpcreech.com/</link><description>Recent content on Disparate Treasures</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 19 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://bpcreech.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Running JavaScript from Python using NodeJS</title><link>https://bpcreech.com/post/python-nodejs-eval/</link><pubDate>Mon, 19 Feb 2024 00:00:00 +0000</pubDate><guid>https://bpcreech.com/post/python-nodejs-eval/</guid><description>&lt;p>I wanted to call a pile of JavaScript (actually transpiled TypeScript) from
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Disparate Treasures</title><link>https://bpcreech.com/</link><description>Recent content on Disparate Treasures</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 16 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://bpcreech.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Reviving PyMiniRacer</title><link>https://bpcreech.com/post/mini-racer/</link><pubDate>Sat, 16 Mar 2024 00:00:00 +0000</pubDate><guid>https://bpcreech.com/post/mini-racer/</guid><description>&lt;p>In &lt;a href="https://bpcreech.com/post/python-nodejs-eval/">this last blog post&lt;/a>, I
+created a &lt;a href="https://pypi.org/project/nodejs-eval/">helper&lt;/a> to call JavaScript
+from Python using a NodeJS sidecar process. In the post I
+&lt;a href="https://bpcreech.com/post/python-nodejs-eval/#alternatives-considered">commented&lt;/a>
+that *in-*process JS evaluation might be nicer. The old
+&lt;a href="https://github.com/sqreen/PyMiniRacer">Sqreen &lt;code>PyMiniRacer&lt;/code> project&lt;/a> had only
+&lt;em>recently&lt;/em> fallen into disrepair. Can we revive it?&lt;/p>
+&lt;p>&lt;strong>TL;DR: Yes!&lt;/strong> It just took a couple weeks of elbow grease, and new ownership
+(it me). I now own the &lt;em>two&lt;/em> best ways to run JavaScript from a Python program:
+&lt;a href="https://github.com/bpcreech/PyMiniRacer">&lt;code>PyMiniRacer&lt;/code>&lt;/a> and
+&lt;a href="https://github.com/bpcreech/nodejs-eval">&lt;code>nodejs-eval&lt;/code>&lt;/a>.&lt;/p></description></item><item><title>Running JavaScript from Python using NodeJS</title><link>https://bpcreech.com/post/python-nodejs-eval/</link><pubDate>Mon, 19 Feb 2024 00:00:00 +0000</pubDate><guid>https://bpcreech.com/post/python-nodejs-eval/</guid><description>&lt;p>I wanted to call a pile of JavaScript (actually transpiled TypeScript) from
 Python, so I could run reinforcement learning on
 &lt;a href="https://bpcreech.com/post/typescript-asteroids">this&lt;/a>.&lt;/p>
 &lt;p>I was dissatisfied with the existing options for calling JS from Python, so I
