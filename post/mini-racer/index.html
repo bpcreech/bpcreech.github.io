@@ -193,8 +193,8 @@ above actually split the V8 build out into a separate project,
 distributing the v8 runtime libraries and headers in both source and binary
 form, packaged as a language-independent zip and as a Ruby gem.</em>&rdquo;. This project
 takes a different tack on the problem by reusing NodeJS&rsquo;s opinionated vendored
-copy and build of V8 instead of trying to build V8 from [Google&rsquo;s
-directions]9https://v8.dev/docs/build). We <em>might</em> be able to simplify
+copy and build of V8 instead of trying to build V8 from
+<a href=https://v8.dev/docs/build>Google&rsquo;s directions</a>. We <em>might</em> be able to simplify
 <code>PyMiniRacer</code> by rebasing it upon the <code>libv8-node</code> build of V8. We&rsquo;d need to
 ensure <code>libv8-node</code> is up-to-date and stable (it&rsquo;s not totally clear to me that
 it is) and, because we&rsquo;re dropping the V8 build entirely, move the compilation
