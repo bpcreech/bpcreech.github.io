@@ -11,7 +11,8 @@ it&rsquo;s live here!"><link rel=preconnect href=https://fonts.gstatic.com cross
 <a href=http://www.dougmcinnes.com/2010/05/12/html-5-asteroids>this cool JavaScript+HTML5 Asteroids clone</a>.
 I&rsquo;ve
 <a href=https://github.com/bpcreech/typescript-asteroids>converted it to TypeScript</a>;
-it&rsquo;s live <a href=https://bpcreech.com/asteroids/>here</a>!</p><h2 id=asteroids>Asteroids</h2><p><a href=https://www.arcade-museum.com/Videogame/asteroids>Asteroids</a> is one of my
+it&rsquo;s live <a href=https://bpcreech.com/asteroids/>here</a>!</p><h2 id=asteroids>Asteroids
+<a href=#asteroids><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h2><p><a href=https://www.arcade-museum.com/Videogame/asteroids>Asteroids</a> is one of my
 favorite video games. Many years ago, the daycare I grew up in (!) had an
 original tabletop Asteroids game for us munchkins to play with. I spent hours on
 that thing instead of playing sportsball or getting vitamin D. Asteroids is
@@ -21,7 +22,8 @@ vector pattern on the screen, resulting in things like small shapes showing up
 brighter.</p><p>So I have spent random minutes playing
 <a href=https://github.com/dmcinnes/HTML5-Asteroids>Doug McInnes&rsquo;s JS asteroids clone</a>
 to reset my brain, for years since he first published it back in 2010.</p><div style=text-align:center><p><img src=/img/asteroids-cocktail.jpg alt="An original Asteroids &ldquo;Cocktail&rdquo;-style tabletop game"></p></p><p><em>An original Asteroids &ldquo;Cocktail&rdquo;-style tabletop game;
-<a href=https://arcadespecialties.com/arcade-games-for-sale/vintage-arcade-games/asteroids-cocktail/>source</a></em></p></div><h2 id=typescriptification>TypeScriptification</h2><p>I wanted to play with ML reinforcement learning (more on that below), which
+<a href=https://arcadespecialties.com/arcade-games-for-sale/vintage-arcade-games/asteroids-cocktail/>source</a></em></p></div><h2 id=typescriptification>TypeScriptification
+<a href=#typescriptification><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h2><p>I wanted to play with ML reinforcement learning (more on that below), which
 requires me first to do some code refactoring on the game. Notably, to do
 training I want to be able to programmatically:</p><ol><li>Reset the game,</li><li>Seed the RNG,</li><li>Single-step the game loop,</li><li>Extract internal state for observation,</li><li>Provide precise control inputs, and</li><li>Decouple UI from business logic, so we can run the game logic without a full
 browser (for both simplicity and speed).</li></ol><p>I&rsquo;m not a good enough JS programmer to safely refactor piles of raw JS, so &mldr;
@@ -30,7 +32,8 @@ OOPyness here and there and generally cleaned up some of the code. More
 refactoring and cleanups to come&mldr;</p><p>This uses:</p><ul><li><a href=https://vitejs.dev/>Vite</a> to manage the dev and build toolchain,</li><li><a href=https://eslint.org/>ESLint</a> for code linting,</li><li><a href=https://prettier.io/>Prettier</a> for formatting, and</li><li><a href=https://github.com/features/actions>Github Actions</a> for CI/CD.</li></ul><p>While all of this improves developer experience, the funny thing is: Doug&rsquo;s
 original JS Asteroids works unmodified 15 years later. It&rsquo;s highly unlikely this
 new one (which depends on all of the above, and NPM, and TypeScript itself) will
-work longer than a year without maintenance to handle changes in dependencies!</p><h2 id=ml-reinforcement-learning>ML reinforcement learning??</h2><p><strong>This is still a TODO and will get another post if I manage to operationalize
+work longer than a year without maintenance to handle changes in dependencies!</p><h2 id=ml-reinforcement-learning>ML reinforcement learning??
+<a href=#ml-reinforcement-learning><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h2><p><strong>This is still a TODO and will get another post if I manage to operationalize
 anything.</strong></p><p>My weird idea is to replace the game&rsquo;s demo screen with a live machine-operated
 game, maybe operated by <a href=https://www.tensorflow.org/js>TensorFlow.js</a>. There
 has already

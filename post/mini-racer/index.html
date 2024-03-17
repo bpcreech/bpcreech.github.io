@@ -51,7 +51,8 @@ that <em>in-</em> process JS evaluation might be nicer. The old
 </span></span><span style=display:flex><span><span style=color:#a6e22e>KeyboardInterrupt</span>
 </span></span></code></pre></div><p><em>Other new features can be found
 <a href=https://bpcreech.com/PyMiniRacer/history/>on the relnotes page</a>, where v0.7.0
-is the first new version since 2021.</em></p><h2 id=a-lineage>A lineage</h2><ol><li><strong><a href=https://github.com/rubyjs/therubyracer><code>therubyracer</code></a> (2009-2018)</strong>
+is the first new version since 2021.</em></p><h2 id=a-lineage>A lineage
+<a href=#a-lineage><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h2><ol><li><strong><a href=https://github.com/rubyjs/therubyracer><code>therubyracer</code></a> (2009-2018)</strong>
 <a href=https://github.com/cowboyd>Charles Lowell</a> of
 <a href=https://frontside.com/>Frontside Software</a> created
 <a href=https://github.com/rubyjs/therubyracer>The Ruby Racer</a> to embed
@@ -74,8 +75,11 @@ interface with <em>Python</em>, resulting in a JS/Python integration with relati
 little support burden.<ul><li>Unfortunately, <code>PyMiniRacer</code> wasn&rsquo;t updated after 2021 when
 <a href=https://www.datadoghq.com/blog/datadog-acquires-sqreen/>Sqreen was acquired by DataDog</a>.</li></ul></li><li><strong><a href=https://github.com/bpcreech/PyMiniRacer><code>bpcreech/PyMiniRacer</code></a> (2024-)</strong>
 This is what you&rsquo;re reading about now. :)</li></ol><p>After discussion with the Sqreen (now DataDog) folks, we decided to host my
-revival of their <code>PyMiniRacer</code> project as a fork, which lives here:</p><ul><li><a href=https://github.com/bpcreech/PyMiniRacer>Github</a></li><li><a href=https://bpcreech.com/PyMiniRacer/>Docs</a>, and</li><li><a href=https://pypi.org/project/mini-racer/>PyPI</a>.</li></ul><h2 id=general-updates>General updates</h2><p>Other than upgrading V8—which has its own section below—I took the opportunity
-to dust off various parts of this project.</p><h3 id=python-ecosystem-updates>Python ecosystem updates</h3><p>In particular, lots of things have happened in the Python world!</p><h4 id=python-versions-drop-python-2-add-up-to-312>Python versions (drop Python 2, add up to 3.12)</h4><p>First, we can drop Python 2 which was
+revival of their <code>PyMiniRacer</code> project as a fork, which lives here:</p><ul><li><a href=https://github.com/bpcreech/PyMiniRacer>Github</a></li><li><a href=https://bpcreech.com/PyMiniRacer/>Docs</a>, and</li><li><a href=https://pypi.org/project/mini-racer/>PyPI</a>.</li></ul><h2 id=general-updates>General updates
+<a href=#general-updates><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h2><p>Other than upgrading V8—which has its own section below—I took the opportunity
+to dust off various parts of this project.</p><h3 id=python-ecosystem-updates>Python ecosystem updates
+<a href=#python-ecosystem-updates><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h3><p>In particular, lots of things have happened in the Python world!</p><h4 id=python-versions-drop-python-2-add-up-to-312>Python versions (drop Python 2, add up to 3.12)
+<a href=#python-versions-drop-python-2-add-up-to-312><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h4><p>First, we can drop Python 2 which was
 <a href=https://www.python.org/doc/sunset-python-2/>globally EOL&rsquo;d in 2020</a> (after a
 deprecation plan over a decade long!). Because the world is big, folks are still
 using Python 2 out there, but we don&rsquo;t need to maintain an <em>up-to-date</em> V8
@@ -89,7 +93,8 @@ specification which lets Python directly run modules <em>and load their
 dependencies, e.g., <code>PyMiniRacer</code>&rsquo;s DLL file</em> out of unusual non-filesystem
 places (such as from within <code>zip</code> files). This system was added in Python 3.7
 and revamped in Python 3.9; <code>PyMiniRacer</code> now supports both incantations of
-loading-data-files-from-the-package.</p><h4 id=packaging-with-hatch>Packaging with Hatch</h4><p><code>PyMiniRacer</code> originally built binary distributions using <code>setuptools</code>, and
+loading-data-files-from-the-package.</p><h4 id=packaging-with-hatch>Packaging with Hatch
+<a href=#packaging-with-hatch><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h4><p><code>PyMiniRacer</code> originally built binary distributions using <code>setuptools</code>, and
 managed its various bits of automation using a hand-written <code>Makefile</code>. Python
 now has a standardized pluggable packaging system for building binary
 distributions, and <a href=https://github.com/pypa/hatch>Hatch</a> is the most popular
@@ -109,10 +114,12 @@ when it won the formatting war, but for some reason Hatch
 so I put it back where Black (and Ruff) default to.</p><p>Hatch also includes built-in support for Python version matrix testing. It works
 super well (modulo, not on <a href=https://www.alpinelinux.org/>Alpine</a> for
 <a href=https://github.com/indygreg/python-build-standalone/issues/86>reasons</a>) and
-lets us drop <a href=https://tox.wiki/en/4.14.1/><code>tox</code></a> as a development dependency.</p><h3 id=pytest-instead-of-unittest><code>pytest</code> instead of <code>unittest</code></h3><p>This is more of a no-brainer these days. <code>unittest</code> has been built into Python
+lets us drop <a href=https://tox.wiki/en/4.14.1/><code>tox</code></a> as a development dependency.</p><h3 id=pytest-instead-of-unittest><code>pytest</code> instead of <code>unittest</code>
+<a href=#pytest-instead-of-unittest><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h3><p>This is more of a no-brainer these days. <code>unittest</code> has been built into Python
 since forever, but these days everyone (in the OSS community anyway) seems to be
 converging on <code>pytest</code>. So I converted all the tests to <code>pytest</code>, which makes
-for slightly simpler-looking tests and prettier console output, yay.</p><h3 id=docs>Docs!</h3><p>Inspired by
+for slightly simpler-looking tests and prettier console output, yay.</p><h3 id=docs>Docs!
+<a href=#docs><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h3><p>Inspired by
 <a href=https://matklad.github.io//2021/02/06/ARCHITECTURE.md.html>this post</a>, I
 figured we should have an <code>ARCHITECTURE.md</code>, so
 <a href=https://github.com/bpcreech/PyMiniRacer/blob/main/ARCHITECTURE.md>I wrote one</a>
@@ -133,9 +140,11 @@ only when combined with
 it&rsquo;s a setup ripe for <a href=https://xkcd.com/2347/>this situation</a>. But, I went with
 peer pressure, and the new docs look great with very little configuration,
 because <code>mkdocs-material</code> is indeed fantastic. The new docs live
-<a href=https://bpcreech.com/PyMiniRacer>here</a>.</p><h2 id=actually-building-v8>Actually building V8</h2><p>Okay, the main work here is updating V8. The last Sqreen version of
+<a href=https://bpcreech.com/PyMiniRacer>here</a>.</p><h2 id=actually-building-v8>Actually building V8
+<a href=#actually-building-v8><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h2><p>Okay, the main work here is updating V8. The last Sqreen version of
 <code>PyMiniRacer</code>, from 2021, used V8 8.9, and no longer builds. V8 is up to 12.2
-today.</p><h3 id=general-challenges-in-building-v8>General challenges in building V8</h3><p>There is no official binary distribution of the V8 library as a standalone unit.
+today.</p><h3 id=general-challenges-in-building-v8>General challenges in building V8
+<a href=#general-challenges-in-building-v8><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h3><p>There is no official binary distribution of the V8 library as a standalone unit.
 The only way to use V8 is to build it yourself. <em>Unless, perhaps, you use the
 whole NodeJS binary, which brings us back to
 <a href=https://bpcreech.com/post/python-nodejs-eval/>my last blog post</a>—maybe, after
@@ -192,12 +201,14 @@ runners: unfortunately, GitHub Actions has no native <code>aarch64</code> hosted
 and no native Alpine runners. We work around this using Umberto Raimondi&rsquo;s
 fantastic <a href=https://github.com/uraimo/run-on-arch-action><code>run-on-arch-action</code></a>.
 This GitHub Action plug-in helps us build Docker containers for Linux
-distributions and architectures, and then build <code>PyMiniRacer</code> there.</p><h3 id=extra-features-added-while-updating-v8>Extra features added while updating V8</h3><p>Aside from
+distributions and architectures, and then build <code>PyMiniRacer</code> there.</p><h3 id=extra-features-added-while-updating-v8>Extra features added while updating V8
+<a href=#extra-features-added-while-updating-v8><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h3><p>Aside from
 <a href="https://chromium.googlesource.com/v8/v8/+log/branch-heads/8.9..branch-heads/12.2/?n=1000">all the V8 updates from v8.9 to v12.2</a>,
 I plumbed in the following which had been disabled in prior <code>PyMiniRacer</code>
 builds:</p><ul><li>Support for the <a href=https://v8.dev/docs/i18n>ECMAScript internalization API</a> and
 thus <a href=https://tc39.es/ecma402/>the ECMA <code>Intl</code> API</a>.</li><li>V8 <a href=https://v8.dev/blog/custom-startup-snapshots>fast startup snapshots</a>.</li></ul><p>Both of these require pulling generated data files into the Python package,
-alongside the compiled DLL.</p><h3 id=potential-future-work-in-simplifying-the-v8-build>Potential future work in simplifying the V8 build</h3><p>The Ruby <a href=https://github.com/rubyjs/mini_racer><code>mini_racer</code> project</a> mentioned
+alongside the compiled DLL.</p><h3 id=potential-future-work-in-simplifying-the-v8-build>Potential future work in simplifying the V8 build
+<a href=#potential-future-work-in-simplifying-the-v8-build><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h3><p>The Ruby <a href=https://github.com/rubyjs/mini_racer><code>mini_racer</code> project</a> mentioned
 above actually split the V8 build out into a separate project,
 <a href=https://github.com/rubyjs/libv8-node><code>libv8-node</code></a>: &ldquo;<em>A project for
 distributing the v8 runtime libraries and headers in both source and binary
@@ -216,7 +227,8 @@ system. The winning multi-platform C/C++ package system today seems to be
 to <a href=https://conan.io/center>Conan Center</a>) would be tough because, along with
 <a href=#general-challenges-in-building-v8>all the difficulties cited above</a>, V8 loves
 to download its own dependencies in violation of Conan&rsquo;s common-sense
-One-Definition Rule (ODR).</p><h2 id=other-future-work-in-pyminiracer>Other future work in <code>PyMiniRacer</code></h2><p>Future work may include:</p><ul><li>Updates to new V8 releases which we can assume will appear unabated.</li><li>Support for
+One-Definition Rule (ODR).</p><h2 id=other-future-work-in-pyminiracer>Other future work in <code>PyMiniRacer</code>
+<a href=#other-future-work-in-pyminiracer><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h2><p>Future work may include:</p><ul><li>Updates to new V8 releases which we can assume will appear unabated.</li><li>Support for
 <a href=https://docs.python.org/3/library/asyncio.html>Python <code>asyncio</code></a>.</li><li>Other stuff from
 <a href=https://github.com/sqreen/PyMiniRacer/issues>the old GitHub issues</a> list.</li><li>Standard library stuff. <code>PyMiniRacer</code> has no <code>console.log</code> (and no <code>window</code>
 object for <code>console</code> to live on), no <code>setTimeout</code>, etc. Providing such
