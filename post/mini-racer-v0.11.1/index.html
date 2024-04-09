@@ -61,16 +61,16 @@ was the subject of the <a href=https://bpcreech.com/post/mini-racer/>last blog p
 <a href=#new-feature-rundown><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h2><p>First, I&rsquo;ll discuss new features for PyMiniRacer. These require an incremental
 overhaul of the C++ side of PyMiniRacer, which is discussed below.</p><h3 id=manipulating-objects-and-arrays>Manipulating objects and arrays
 <a href=#manipulating-objects-and-arrays><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h3><p>As of <code>v0.8.0</code> and earlier, PyMiniRacer could create and manipulate objects and
-arrays only at a distance: you could create them in the JS context via
-<code>MiniRacer.eval</code> statements, and poke at them via <em>more</em> <code>MiniRacer.eval</code>
-statements to either pull out individual values or <code>JSON.stringify</code> them in
-bulk. <code>MiniRacer.eval</code> could convert primitives like numbers and strings
-directly to Python objects, but to get a member of an object, you had to run an
-evaluation of some JS code which would extract that member, like
+arrays only at a distance. Sure, you could easily create objects in the JS
+context via <code>MiniRacer.eval</code> statements. However, getting to their <em>contents</em>
+was hard!</p><p><code>MiniRacer.eval</code> could convert primitives like numbers and strings directly to
+Python objects, but to get a property of an object, you had to run an evaluation
+of some JS code which would extract that property, like
 <code>mr.eval(my_obj["my_property"])</code> instead of simply writing
-<code>my_obj["my_property"]</code> in Python.</p><p>It feels like programming with
+<code>my_obj["my_property"]</code> in Python. Or you could give up and <code>JSON.stringify</code> the
+whole object, and <code>json.loads</code> the serialized object on the Python side.</p><p>The more you do it, the more it feels like programming with
 <a href=https://en.wikipedia.org/wiki/Remote_manipulator>waldos</a>:</p><div style=text-align:center><p><img src=/img/waldos.jpg alt="A &ldquo;waldo&rdquo; or &ldquo;remote manipulator&rdquo;"></p></p><p><em>Working with Objects and Arrays in PyMiniRacer v0.8.0.
-<a href=https://en.wikipedia.org/wiki/Remote_manipulator>source</a></em></p></div><p>Well, now you can directly mess with objects and arrays! I added a
+<a href=https://en.wikipedia.org/wiki/Remote_manipulator>source</a></em></p></div><p>Well, now you can directly mess with objects and arrays from Python! I added a
 <a href=https://docs.python.org/3/library/collections.abc.html#collections.abc.MutableMapping><code>MutableMapping</code></a>
 (<code>dict</code>-like) interface for all derivatives of JS Objects, and a
 <a href=https://docs.python.org/3/library/collections.abc.html#collections.abc.MutableSequence><code>MutableSequence</code></a>
