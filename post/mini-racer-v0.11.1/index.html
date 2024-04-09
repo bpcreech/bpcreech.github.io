@@ -364,9 +364,11 @@ what happens now is:</p><ol><li><p><code>_Context.__del__</code> calls <code>Min
 <code>BinaryValueFactory</code> wasn&rsquo;t tracking them and thus didn&rsquo;t even know they
 still existed). <code>BinaryValueFactory</code> goes ahead and tears all those leftover
 <code>BinaryValue</code> objects down. This avoids a memory leak, and avoids dangling
-pointers on the C++ side.</p></li><li><p>When Python later calls <code>_ValueHandle.__del__</code>, it passes a context ID to
-<code>MiniRacer::ContextFactory</code>. This context ID is no longer valid because the
-context was torn down already. Thus, this call can be safely ignored.</p></li></ol><p>I think the design strategy is generalizable to most Python/C++ integrations,
+pointers on the C++ side.</p></li><li><p>When Python later calls <code>_ValueHandle.__del__</code>, it passes both a context ID
+<em>and</em> the value handle to <code>MiniRacer::ContextFactory</code>.
+<code>MiniRacer::ContextFactory</code> notices that the whole context ID is no longer
+valid because the context was torn down already. The context and its values
+are already gone. Thus, this call can be safely ignored.</p></li></ol><p>I think the design strategy is generalizable to most Python/C++ integrations,
 and potentially likewise Java/C++ and C#/C++ integrations. (<em>TL;DR: use integer
 identifiers instead of passing pointers, track object lifecycle in maps on the
 C++ side, validate all incoming identifiers from Python, and refactor so that
