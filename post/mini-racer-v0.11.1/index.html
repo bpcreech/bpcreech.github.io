@@ -130,7 +130,7 @@ PyMiniRacer has no <code>window</code> object.) Turns out we can write a pure-JS
 of
 <a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics/waitAsync><code>Atomics.waitAsync</code></a>.
 I stole this insight from the PyMiniRacer unit tests and spun it into a
-glorified <code>settTimeout</code> / <code>clearTimeout</code> wrapper in what felt like one of those
+glorified <code>setTimeout</code> / <code>clearTimeout</code> wrapper in what felt like one of those
 silly improbable interview questions (&ldquo;Please build thing A using only
 half-broken tools B and C!&rdquo;).</p><p>Moreover, this required making PyMiniRacer better at running code indefinitely
 so it would actually process the async work reliably—more on that below.</p><h2 id=changes-to-the-pyminiracer-c-backend>Changes to the PyMiniRacer C++ backend
