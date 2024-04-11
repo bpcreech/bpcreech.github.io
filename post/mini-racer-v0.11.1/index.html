@@ -168,10 +168,10 @@ only 29 small files.</li></ol><p>Anyway, <code>clang-tidy</code> is super useful
 <a href=#inverting-pyminiracers-threading-model><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentcolor" class="bi bi-link" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 000 6h3a3 3 0 002.83-4H9c-.086.0-.17.01-.25.031A2 2 0 017 10.5H4a2 2 0 110-4h1.535c.218-.376.495-.714.82-1z"/><path d="M9 5.5a3 3 0 00-2.83 4h1.098A2 2 0 019 6.5h3a2 2 0 110 4h-1.535a4.02 4.02.0 01-.82 1H12a3 3 0 100-6H9z"/></svg></a></h3><p>So, to start off, for <code>async</code> code to work correctly in PyMiniRacer (and also,
 to run code off the Python thread, thus enabling <code>KeyboardInterrupt</code> of
 PyMiniRacer JS code), we need V8 to execute code <em>continually</em>, e.g., to process
-delayed callbacks from <code>setTimeout</code>. In other words, if want to be able to use
-<code>setTimeout</code> to schedule work for <code>N</code> seconds from now, and have it actually,
-you know, <em>run</em> that delayed work, we need to convince V8 to actually run,
-continually, until explicitly shut down.</p><p>However, PyMiniRacer was set up like <em>both</em> of V8&rsquo;s
+delayed callbacks from <code>setTimeout</code>. In other words, if we want to be able to
+use <code>setTimeout</code> to schedule work for <code>N</code> seconds from now, and have it
+actually, you know, <em>run</em> that delayed work, we need to convince V8 to actually
+run, continually, until explicitly shut down.</p><p>However, PyMiniRacer was set up like <em>both</em> of V8&rsquo;s
 <a href=https://v8.github.io/api/head/examples.html>extensive list of two samples</a>. It
 ran a thing once, and pumped the V8 message loop a bit, and quit, never to call
 V8 again (until the next user input). This seems odd: how do you know there is
