@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>javascript on Disparate Treasures</title><link>https://bpcreech.com/tags/javascript/</link><description>Recent content in javascript on Disparate Treasures</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 09 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://bpcreech.com/tags/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>PyMiniRacer v0.11.1</title><link>https://bpcreech.com/post/mini-racer-v0.11.1/</link><pubDate>Tue, 09 Apr 2024 00:00:00 +0000</pubDate><guid>https://bpcreech.com/post/mini-racer-v0.11.1/</guid><description>&lt;p>In &lt;a href="https://bpcreech.com/post/mini-racer/">this last blog post&lt;/a>, I discussed my
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>javascript on Disparate Treasures</title><link>https://bpcreech.com/tags/javascript/</link><description>Recent content in javascript on Disparate Treasures</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 24 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://bpcreech.com/tags/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>PyMiniRacer v0.12.2</title><link>https://bpcreech.com/post/mini-racer-v0.12.2/</link><pubDate>Fri, 24 May 2024 00:00:00 +0000</pubDate><guid>https://bpcreech.com/post/mini-racer-v0.12.2/</guid><description>&lt;p>The dynamic language embedding
+&lt;a href="https://en.wikipedia.org/wiki/Turducken">turducken&lt;/a> is complete: you can now
+call Python from JavaScript from Python!&lt;/p>
+&lt;p>By writing logic in Python and exposing it to V8&amp;rsquo;s JavaScript sandbox, you can
+now in theory, while writing &lt;em>only Python and JavaScript&lt;/em>, create your own JS
+extension library similar to
+&lt;a href="https://nodejs.org/docs/latest/api/">NodeJS&amp;rsquo;s standard library&lt;/a>.Obviously,
+anything created this way this will almost certainly be less extensive, less
+standardized, and less efficient than the NodeJS standard library; but it will
+be &lt;em>more tailored to your use case&lt;/em>.&lt;/p>
+&lt;p>This post follows up on prior content related to
+&lt;a href="https://github.com/bpcreech/PyMiniRacer">reviving PyMiniRacer&lt;/a> and then
+&lt;a href="https://bpcreech.com/post/mini-racer-v0.11.1/">giving Python code the power to directly poke JS Objects, call JS Functions, and await JS Promises&lt;/a>.&lt;/p></description></item><item><title>PyMiniRacer v0.11.1</title><link>https://bpcreech.com/post/mini-racer-v0.11.1/</link><pubDate>Tue, 09 Apr 2024 00:00:00 +0000</pubDate><guid>https://bpcreech.com/post/mini-racer-v0.11.1/</guid><description>&lt;p>In &lt;a href="https://bpcreech.com/post/mini-racer/">this last blog post&lt;/a>, I discussed my
 revival of &lt;a href="https://github.com/bpcreech/PyMiniRacer">PyMiniRacer&lt;/a>, a neat
 project created by &lt;a href="https://github.com/sqreen">Sqreen&lt;/a> to embed the V8
 JavaScript into Python. As of that post (&lt;code>v0.8.0&lt;/code>), I had done a light
