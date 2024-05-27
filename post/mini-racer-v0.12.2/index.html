@@ -169,7 +169,7 @@ the function parameters back to it.</p></li></ol></td></tr></table><h3 id=un-sha
 &ldquo;regressing to C++ developer phase 1&rdquo; by using <code>std::shared_ptr</code> <em>everywhere</em> to
 manage object lifecycles. As of PyMiniRacer <code>v0.11.1</code> we were using a DAG of
 <code>std::shared_ptr</code> references to manage lifecycle of a dozen different classes.</p><p>I discovered <a href=https://github.com/bpcreech/PyMiniRacer/issues/62>a bug</a> that
-this logic left behind. The problem with the Laissez-faire
+this logic left behind. The problem with the laissez-faire
 <code>std::shared_ptr</code>-all-the-things memory management pattern is that we leak
 memory when we have reference cycles, and unfortunately we do have reference
 cycles in PyMiniRacer. In particular, we create and throw function closures onto
