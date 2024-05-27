@@ -127,11 +127,15 @@ We just need to attach a tiny bit of C++ state (the Python address of the
 callback function, and a pointer to our V8 value wrapper) to a callback object,
 and hand that off to V8.</p><p>Unfortunately,
 <a href=https://stackoverflow.com/questions/24107280/v8-weakcallback-never-gets-called>V8 is pretty apathetic about telling us when it&rsquo;s <em>done with</em> an external C++ object we give it</a>.
-I couldn&rsquo;t make the V8 finalizer callback work at all, and all commentary I can
-find on the matter says trying to get V8 <code>MakeWeak</code> and finalizers work reliably
-is a fool&rsquo;s errand. This creates a memory management conundrum: we need to
-create a small bit of per-callback C++ state and hand it to V8, but V8 won&rsquo;t
-reliably tell us when it has finally dropped all references to that state.</p><p>So I moved to a model of creating <em>one such callback object per MiniRacer
+V8 will
+<a href=https://github.com/v8/v8/blob/77f045f1c9329cafc90edd347fba6f22e4687031/include/v8-external.h#L21>happily accept a raw pointer to an external object</a>,
+but it doesn&rsquo;t reliably call you back to tell you when it&rsquo;s <em>done with</em> that raw
+pointer. I couldn&rsquo;t make the V8 finalizer callback work at all, and all
+commentary I can find on the matter says trying to get V8 <code>MakeWeak</code> and
+finalizers work reliably is a fool&rsquo;s errand. This creates a memory management
+conundrum: we need to create a small bit of per-callback C++ state and hand it
+to V8, but V8 won&rsquo;t reliably tell us when it has finally dropped all references
+to that state.</p><p>So I moved to a model of creating <em>one such callback object per MiniRacer
 context</em>. This object outlives the <code>v8::Isolate</code>, so we&rsquo;re no longer relying on
 V8 to tell us when it&rsquo;s done with the pointer we gave it. In order to multiplex
 many callbacks through that one object, we can just give JavaScript an ID number
